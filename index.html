@@ -139,6 +139,13 @@ td.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:
 .metodo p,.metodo li{max-width:62ch}
 .metodo ul{padding-left:18px;margin:0;display:grid;gap:6px}
 .metodo h3{font-size:17px;margin:0 0 6px}
+.funil{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.funil li{background:var(--card);display:grid;grid-template-columns:minmax(5ch,auto) 1fr;gap:16px;align-items:center;padding:14px 16px}
+.funil b{font-family:var(--f-mono);font-weight:500;font-size:clamp(26px,5vw,36px);line-height:1;font-variant-numeric:tabular-nums;text-align:right}
+.funil span{font-size:15px;line-height:1.4;max-width:62ch}
+.funil .fora b{color:var(--muted)}
+.funil .fim{background:color-mix(in srgb,var(--stamp) 8%,var(--card))}
+.funil .fim b{color:var(--stamp)}
 footer{margin-top:48px;background:var(--band);color:var(--band-ink)}
 footer .in{padding-block:28px;display:grid;gap:8px;font-size:14px}
 footer a{color:var(--digit)}
@@ -155,7 +162,7 @@ footer a{color:var(--digit)}
     <h1>O Voto<br><span class="de">do Flávio</span></h1>
     <p class="lede">Os votos do senador Flávio Bolsonaro contra você e o Brasil.</p>
     <nav class="placar" aria-label="Resumo">
-      <a href="#fichas"><b id="n-fichas">27</b><span>votos e omissões contra direitos e contra o seu bolso, com prova oficial</span></a>
+      <a href="#fichas"><b id="n-fichas">27</b><span>fichas que reúnem 40 votações contra direitos e contra o seu bolso, com prova oficial</span></a>
       <a href="#ausencias"><b>48%</b><span>das votações de 2026 sem o voto dele</span></a>
       <a href="#incoerencias"><b>3</b><span>vezes em que disse uma coisa e votou outra</span></a>
     </nav>
@@ -171,7 +178,7 @@ footer a{color:var(--digit)}
   </div></section>
 
   <section id="fichas"><div class="in">
-    <div class="sec-h"><h2>Como ele votou</h2><p id="sub-fichas">Cada ficha mostra o que estava em votação, o que o voto dele significou e quem paga a conta. Toque em "Ver a prova" para ver as votações oficiais.</p></div>
+    <div class="sec-h"><h2>Como ele votou</h2><p id="sub-fichas">As 27 fichas reúnem 40 votações nominais do plenário. Uma mesma matéria costuma ser votada várias vezes, no texto principal, nas emendas, nos destaques e nos dois turnos de uma PEC, e cada ficha junta todas essas votações. Toque em "Ver a prova" para conferir cada uma delas no registro oficial.</p></div>
     <div class="grid" id="g-fichas"></div>
   </div></section>
 
@@ -185,7 +192,13 @@ footer a{color:var(--digit)}
   </div></section>
 
   <section id="como-fizemos"><div class="in">
-    <div class="sec-h"><h2>Como fizemos</h2></div>
+    <div class="sec-h"><h2>Como fizemos</h2><p>Do total de votações ao que está nas fichas.</p></div>
+    <ol class="funil">
+      <li><b>426</b><span>votações nominais de plenário de que Flávio Bolsonaro participou ou em que estava registrado como ausente, de 2023 a 2026</span></li>
+      <li class="fora"><b>237</b><span>eram indicações de autoridades, como embaixadores e ministros de tribunais. O voto é secreto, por isso ficaram de fora</span></li>
+      <li><b>189</b><span>votações sobre projetos de lei, PECs, medidas provisórias e decretos legislativos, todas analisadas uma a uma</span></li>
+      <li class="fim"><b>40</b><span>delas mostram votos e omissões contra a população e estão reunidas nas 27 fichas, sobre 29 matérias</span></li>
+    </ol>
     <div class="metodo">
       <div>
         <h3>De onde vêm os dados</h3>
@@ -246,7 +259,7 @@ function ficha(f){
     const nums=el('div','nums'); nums.append(el('span','s','Sim '+s), el('span','n','Não '+n)); box.appendChild(nums);
     a.appendChild(box);
   }
-  const det=el('details'); const sm=el('summary',null,'Ver a prova'); det.appendChild(sm);
+  const det=el('details'); const nv=f.provas.length; const sm=el('summary',null,'Ver a prova · '+nv+(nv>1?' votações':' votação')); det.appendChild(sm);
   const pr=el('div','prova');
   pr.appendChild(el('p',null,f.texto));
   const tw=el('div','tbl'); const t=el('table'); const thr=el('tr');
